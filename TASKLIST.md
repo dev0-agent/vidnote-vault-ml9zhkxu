@@ -35,7 +35,7 @@ It is automatically updated by dev0 as tasks are completed.
 
 ## Phase 3
 
-- [ ] ⏳ **Add Tagging System**
+- [x] ✅ **Add Tagging System**
   Update the Add/Edit Video forms to support tags. Create a simple tag input component (enter to add). Update the Dashboard to allow filtering by clicking a tag.
 
 - [ ] ⏳ **Implement Global Search**
