@@ -18,12 +18,24 @@ import { Toaster } from "@/components/ui/sonner"
 import { toast } from "sonner"
 import { AddVideoDialog } from "@/components/add-video-dialog"
 import { VideoGrid } from "@/components/video-grid"
+import { VideoDetailView } from "@/components/video-detail-view"
+import { Video } from "@/types"
 
 export function App() {
   const [currentTab, setCurrentTab] = React.useState("library")
   const [searchQuery, setSearchQuery] = React.useState("")
+  const [selectedVideo, setSelectedVideo] = React.useState<Video | null>(null)
 
   const renderContent = () => {
+    if (selectedVideo) {
+      return (
+        <VideoDetailView 
+          video={selectedVideo} 
+          onBack={() => setSelectedVideo(null)} 
+        />
+      )
+    }
+
     switch (currentTab) {
       case "library":
         return (
@@ -38,6 +50,7 @@ export function App() {
             <VideoGrid 
               searchQuery={searchQuery} 
               onClearSearch={() => setSearchQuery("")}
+              onVideoSelect={setSelectedVideo}
             />
           </div>
         )
@@ -75,6 +88,7 @@ export function App() {
   }
 
   const getPageTitle = () => {
+    if (selectedVideo) return selectedVideo.title
     switch (currentTab) {
       case "library":
         return "Library"
@@ -89,7 +103,13 @@ export function App() {
 
   return (
     <SidebarProvider>
-      <AppSidebar currentTab={currentTab} onTabChange={setCurrentTab} />
+      <AppSidebar 
+        currentTab={currentTab} 
+        onTabChange={(tab) => {
+          setCurrentTab(tab)
+          setSelectedVideo(null)
+        }} 
+      />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 w-full">

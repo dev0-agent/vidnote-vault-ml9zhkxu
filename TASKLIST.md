@@ -27,7 +27,7 @@ It is automatically updated by dev0 as tasks are completed.
 - [x] ✅ **Integrate YouTube Player Component**
   Create a `VideoPlayer` component wrapping `react-youtube` or the native IFrame API. It must expose a `ref` or method to control playback (seekTo, getCurrentTime, pause) for parent components.
 
-- [ ] ⏳ **Implement Timestamp Note Creation**
+- [x] ✅ **Implement Timestamp Note Creation**
   Build the Note Input interface. This should sit next to or below the player. When the user focuses the input, pause the video. Include a button to 'Capture Timestamp' which grabs the current player time. Saving the note adds it to the `storage` associated with the video ID.
 
 - [ ] ⏳ **Implement Note List and Seek Logic**
