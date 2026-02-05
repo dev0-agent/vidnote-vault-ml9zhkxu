@@ -1,0 +1,7 @@
+{
+  "status": "success",
+  "commitMessage": "feat: define core data models and types for Video, Note, and Library",
+  "prTitle": "Define Data Models and Types",
+  "prBody": "This PR introduces the core TypeScript definitions for the VidNote Vault application. It establishes the `Video`, `Note`, and `Library` types in `src/types/index.ts`, providing a foundation for persistent storage and state management.",
+  "notes": "Defined the core data structures using TypeScript `type` aliases as per project guidelines. The `Library` state is defined as a flat structure containing arrays of videos and notes."
+}
