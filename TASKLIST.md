@@ -21,7 +21,7 @@ It is automatically updated by dev0 as tasks are completed.
 - [ ] ⏳ **Implement 'Add Video' Dialog**
   Create a Dialog component that accepts a YouTube URL. Implement a utility to extract the YouTube Video ID from various URL formats (shorts, standard, share links). On submit, create a new Video entry in localStorage. Use `noembed.com` or similar public oEmbed endpoint to fetch the video title automatically if possible, otherwise allow manual title entry.
 
-- [ ] ⏳ **Build Video Grid Dashboard**
+- [x] ✅ **Build Video Grid Dashboard**
   Create the main dashboard view that lists saved videos. Use a Card component to show the thumbnail (standard YouTube thumbnail URL structure), title, and tags. Implement a 'Delete' action on the card.
 
 - [ ] ⏳ **Integrate YouTube Player Component**
