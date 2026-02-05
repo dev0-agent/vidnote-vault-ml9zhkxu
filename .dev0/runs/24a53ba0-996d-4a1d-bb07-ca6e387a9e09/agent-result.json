@@ -1,0 +1,7 @@
+{
+  "status": "success",
+  "commitMessage": "feat: create application shell and navigation\n\n- Implemented main layout using shadcn/ui Sidebar\n- Added header with breadcrumbs and search bar\n- Created navigation sidebar with Library, Tags, and Settings\n- Implemented simple conditional rendering for page navigation\n- Integrated basic styles and placeholders for empty states",
+  "prTitle": "feat: Create Application Shell and Navigation",
+  "prBody": "This PR implements the core application shell and navigation structure for VidNote Vault.\n\nKey changes:\n- Set up `SidebarProvider`, `Sidebar`, and `SidebarInset` from shadcn/ui.\n- Created a responsive header with a search bar and breadcrumbs.\n- Implemented `AppSidebar` with navigation links for Library, Tags, and Settings.\n- Added simple state-based routing for the single-page application.\n- Verified type safety with `tsc --noEmit`.",
+  "notes": "Used simple conditional rendering for routing as requested for single-page apps and to avoid adding unnecessary dependencies at this stage. The layout is responsive and follows the project's design goals."
+}
