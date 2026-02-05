@@ -7,7 +7,7 @@ It is automatically updated by dev0 as tasks are completed.
 
 ## Phase 1
 
-- [ ] ⏳ **Define Data Models and Types**
+- [x] ✅ **Define Data Models and Types**
   Create a `types/index.ts` file to define the core data structures. We need interfaces for `Video` (id, youtubeId, title, url, tags, createdAt), `Note` (id, videoId, timestamp, content, createdAt), and the overall `Library` state. Ensure strict typing to prevent runtime errors later.
 
 - [ ] ⏳ **Implement LocalStorage Repository**
