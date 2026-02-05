@@ -122,3 +122,36 @@ export const deleteNote = (noteId: string): void => {
   library.notes = library.notes.filter((n) => n.id !== noteId);
   saveLibrary(library);
 };
+
+/**
+ * Searches the library for videos matching the query string.
+ * Checks video title, tags, and content of associated notes.
+ * Can optionally accept a library object to avoid re-reading from localStorage.
+ */
+export const searchLibrary = (query: string, library: Library = getLibrary()): Video[] => {
+  if (!query.trim()) {
+    return library.videos;
+  }
+
+  const searchLower = query.toLowerCase();
+
+  return library.videos.filter((video) => {
+    // Check video title
+    if (video.title.toLowerCase().includes(searchLower)) {
+      return true;
+    }
+
+    // Check tags
+    if (video.tags.some((tag) => tag.toLowerCase().includes(searchLower))) {
+      return true;
+    }
+
+    // Check associated notes
+    const videoNotes = library.notes.filter((n) => n.videoId === video.id);
+    if (videoNotes.some((note) => note.content.toLowerCase().includes(searchLower))) {
+      return true;
+    }
+
+    return false;
+  });
+};
