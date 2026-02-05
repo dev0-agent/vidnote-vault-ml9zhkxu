@@ -30,4 +30,12 @@ Use this format when adding learnings:
 
 ## Learnings Log
 
-_(Agents will append their learnings below as tasks are completed)_
+### Task: Implement LocalStorage Repository
+- **Completed:** 2026-02-05
+- **Task ID:** 131630b0-8cda-4d10-a6c9-0dfd8df7bf60
+- **Learnings:**
+  - Used `zod` for robust validation of data retrieved from `localStorage`.
+  - Implemented centralized `saveLibrary` function to handle `QuotaExceededError` consistently.
+  - Designed `saveVideo` and `addNote` to handle both create and update operations based on ID existence.
+  - Ensured that deleting a video also cleans up associated notes to prevent data leakage/orphaned records.
+
