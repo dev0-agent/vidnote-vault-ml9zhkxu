@@ -1,6 +1,6 @@
 import * as React from "react"
-import { Video } from "@/types"
-import { getLibrary, deleteVideo } from "@/lib/storage"
+import { Video, Library } from "@/types"
+import { getLibrary, deleteVideo, searchLibrary } from "@/lib/storage"
 import { VideoCard } from "@/components/video-card"
 import { toast } from "sonner"
 import { LayoutGrid, List } from "lucide-react"
@@ -14,44 +14,39 @@ interface VideoGridProps {
 }
 
 export function VideoGrid({ searchQuery = "", onClearSearch, onVideoSelect, onTagClick }: VideoGridProps) {
-  const [videos, setVideos] = React.useState<Video[]>([])
+  const [library, setLibrary] = React.useState<Library>({ videos: [], notes: [] })
   const [viewMode, setViewMode] = React.useState<"grid" | "list">("grid")
 
-  const loadVideos = React.useCallback(() => {
-    const library = getLibrary()
-    setVideos(library.videos)
+  const loadLibrary = React.useCallback(() => {
+    setLibrary(getLibrary())
   }, [])
 
   React.useEffect(() => {
-    loadVideos()
+    loadLibrary()
     // Listen for storage changes in other tabs
-    window.addEventListener("storage", loadVideos)
-    return () => window.removeEventListener("storage", loadVideos)
-  }, [loadVideos])
+    window.addEventListener("storage", loadLibrary)
+    return () => window.removeEventListener("storage", loadLibrary)
+  }, [loadLibrary])
 
   // Custom event listener for when the library is updated (video added, updated, or deleted)
   React.useEffect(() => {
-    const handleLibraryUpdated = () => loadVideos()
+    const handleLibraryUpdated = () => loadLibrary()
     window.addEventListener("library-updated", handleLibraryUpdated)
     return () => window.removeEventListener("library-updated", handleLibraryUpdated)
-  }, [loadVideos])
+  }, [loadLibrary])
 
   const handleDelete = (id: string) => {
     deleteVideo(id)
     window.dispatchEvent(new CustomEvent("library-updated"))
-    loadVideos()
+    loadLibrary()
     toast.success("Video deleted")
   }
 
-  const filteredVideos = videos.filter((video) => {
-    const searchLower = searchQuery.toLowerCase()
-    return (
-      video.title.toLowerCase().includes(searchLower) ||
-      video.tags.some((tag) => tag.toLowerCase().includes(searchLower))
-    )
-  }).sort((a, b) => b.createdAt - a.createdAt)
+  const filteredVideos = React.useMemo(() => {
+    return searchLibrary(searchQuery, library).sort((a, b) => b.createdAt - a.createdAt)
+  }, [searchQuery, library])
 
-  if (videos.length === 0) {
+  if (library.videos.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] border-2 border-dashed rounded-xl bg-muted/30 p-8 text-center">
         <div className="bg-muted rounded-full p-4 mb-4">
@@ -120,7 +115,7 @@ export function VideoGrid({ searchQuery = "", onClearSearch, onVideoSelect, onTa
             onDelete={handleDelete}
             onSelect={onVideoSelect || (() => {})}
             onTagClick={onTagClick}
-            onVideoUpdated={loadVideos}
+            onVideoUpdated={loadLibrary}
           />
         ))}
       </div>
