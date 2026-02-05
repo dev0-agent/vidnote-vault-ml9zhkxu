@@ -14,6 +14,9 @@ import {
 } from "@/components/ui/breadcrumb"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
+import { Toaster } from "@/components/ui/sonner"
+import { toast } from "sonner"
+import { AddVideoDialog } from "@/components/add-video-dialog"
 
 export function App() {
   const [currentTab, setCurrentTab] = React.useState("library")
@@ -26,6 +29,7 @@ export function App() {
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold tracking-tight">Library</h2>
+              <AddVideoDialog onVideoAdded={() => toast.success("Video added successfully")} />
             </div>
             <div className="grid auto-rows-min gap-4 md:grid-cols-3">
               <div className="aspect-video rounded-xl bg-muted/50 flex items-center justify-center border-2 border-dashed">
@@ -114,6 +118,7 @@ export function App() {
           {renderContent()}
         </main>
       </SidebarInset>
+      <Toaster />
     </SidebarProvider>
   )
 }
