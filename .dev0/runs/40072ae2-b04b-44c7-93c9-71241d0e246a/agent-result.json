@@ -1,0 +1,5 @@
+{"status":"success","commitMessage":"Implement note listing and click-to-seek logic","prTitle":"Implement Note List and Seek Logic","prBody":"Implemented the display of notes for the active video in `VideoDetailView`. 
+- Added `notes` state and loaded notes from `localStorage` using `getLibrary`.
+- Filtered notes by `videoId` and sorted them by timestamp.
+- Displayed notes in a `ScrollArea` with formatted timestamps (mm:ss).
+- Implemented `handleSeek` to allow users to click a note or timestamp to seek the video to that specific time using the `VideoPlayerRef`.","notes":"Verified with `tsc`. No testing framework available in the project."} 
