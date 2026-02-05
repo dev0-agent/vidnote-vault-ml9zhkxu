@@ -39,3 +39,11 @@ Use this format when adding learnings:
   - Designed `saveVideo` and `addNote` to handle both create and update operations based on ID existence.
   - Ensured that deleting a video also cleans up associated notes to prevent data leakage/orphaned records.
 
+### Task: Integrate YouTube Player Component
+- **Completed:** 2026-02-05
+- **Task ID:** 803c1e49-f9bb-4fa5-827e-2f03664ee57e
+- **Learnings:**
+  - Used `react-youtube` which wraps the YouTube IFrame Player API.
+  - Implemented `VideoPlayer` with `forwardRef` and `useImperativeHandle` to expose imperative methods (`seekTo`, `getCurrentTime`, `pauseVideo`, `playVideo`) to parent components, allowing external control (e.g., clicking a note timestamp).
+  - Note that `getCurrentTime` returns a number (seconds) and is technically synchronous in the wrapper, but relies on the underlying player state.
+  - Added `allowSeekAhead` parameter to `seekTo` for flexibility.
