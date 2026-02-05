@@ -1,0 +1,7 @@
+{
+  "status": "success",
+  "commitMessage": "feat: implement tagging system with tag input and filtering",
+  "prTitle": "Add Tagging System",
+  "prBody": "This PR implements a comprehensive tagging system for VidNote Vault.\n\nKey changes:\n- Added a reusable `TagInput` component for managing tags in forms.\n- Updated `AddVideoDialog` to support tags during video creation.\n- Created `EditVideoDialog` to allow updating video titles and tags.\n- Updated `VideoCard` to display tags and enable tag-based filtering on click.\n- Implemented dynamic tag browsing in the 'Tags' tab.\n- Improved cross-component state synchronization using a global `library-updated` event.",
+  "notes": "The tagging system integrates seamlessly with the existing search functionality. I also added a 'library-updated' custom event to ensure that adding/editing/deleting videos correctly refreshes the tags list in the 'Tags' tab without requiring a page reload."
+}

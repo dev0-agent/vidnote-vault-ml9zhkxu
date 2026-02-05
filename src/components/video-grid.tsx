@@ -10,9 +10,10 @@ interface VideoGridProps {
   searchQuery?: string
   onClearSearch?: () => void
   onVideoSelect?: (video: Video) => void
+  onTagClick?: (tag: string) => void
 }
 
-export function VideoGrid({ searchQuery = "", onClearSearch, onVideoSelect }: VideoGridProps) {
+export function VideoGrid({ searchQuery = "", onClearSearch, onVideoSelect, onTagClick }: VideoGridProps) {
   const [videos, setVideos] = React.useState<Video[]>([])
   const [viewMode, setViewMode] = React.useState<"grid" | "list">("grid")
 
@@ -28,15 +29,16 @@ export function VideoGrid({ searchQuery = "", onClearSearch, onVideoSelect }: Vi
     return () => window.removeEventListener("storage", loadVideos)
   }, [loadVideos])
 
-  // Custom event listener for when a video is added via AddVideoDialog
+  // Custom event listener for when the library is updated (video added, updated, or deleted)
   React.useEffect(() => {
-    const handleVideoAdded = () => loadVideos()
-    window.addEventListener("video-added", handleVideoAdded)
-    return () => window.removeEventListener("video-added", handleVideoAdded)
+    const handleLibraryUpdated = () => loadVideos()
+    window.addEventListener("library-updated", handleLibraryUpdated)
+    return () => window.removeEventListener("library-updated", handleLibraryUpdated)
   }, [loadVideos])
 
   const handleDelete = (id: string) => {
     deleteVideo(id)
+    window.dispatchEvent(new CustomEvent("library-updated"))
     loadVideos()
     toast.success("Video deleted")
   }
@@ -117,6 +119,8 @@ export function VideoGrid({ searchQuery = "", onClearSearch, onVideoSelect }: Vi
             video={video}
             onDelete={handleDelete}
             onSelect={onVideoSelect || (() => {})}
+            onTagClick={onTagClick}
+            onVideoUpdated={loadVideos}
           />
         ))}
       </div>

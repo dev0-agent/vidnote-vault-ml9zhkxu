@@ -20,11 +20,30 @@ import { AddVideoDialog } from "@/components/add-video-dialog"
 import { VideoGrid } from "@/components/video-grid"
 import { VideoDetailView } from "@/components/video-detail-view"
 import { Video } from "@/types"
+import { getLibrary } from "@/lib/storage"
 
 export function App() {
   const [currentTab, setCurrentTab] = React.useState("library")
   const [searchQuery, setSearchQuery] = React.useState("")
   const [selectedVideo, setSelectedVideo] = React.useState<Video | null>(null)
+  const [libraryVersion, setLibraryVersion] = React.useState(0)
+
+  React.useEffect(() => {
+    const handleLibraryUpdated = () => setLibraryVersion(v => v + 1)
+    window.addEventListener("library-updated", handleLibraryUpdated)
+    window.addEventListener("storage", handleLibraryUpdated)
+    return () => {
+      window.removeEventListener("library-updated", handleLibraryUpdated)
+      window.removeEventListener("storage", handleLibraryUpdated)
+    }
+  }, [])
+
+  const allTags = React.useMemo(() => {
+    const library = getLibrary()
+    const tags = new Set<string>()
+    library.videos.forEach(v => v.tags.forEach(t => tags.add(t)))
+    return Array.from(tags).sort()
+  }, [libraryVersion])
 
   const renderContent = () => {
     if (selectedVideo) {
@@ -44,13 +63,14 @@ export function App() {
               <h2 className="text-2xl font-bold tracking-tight">Library</h2>
               <AddVideoDialog onVideoAdded={() => {
                 toast.success("Video added successfully")
-                window.dispatchEvent(new CustomEvent("video-added"))
+                window.dispatchEvent(new CustomEvent("library-updated"))
               }} />
             </div>
             <VideoGrid 
               searchQuery={searchQuery} 
               onClearSearch={() => setSearchQuery("")}
               onVideoSelect={setSelectedVideo}
+              onTagClick={(tag) => setSearchQuery(tag)}
             />
           </div>
         )
@@ -58,12 +78,27 @@ export function App() {
         return (
           <div className="flex flex-1 flex-col gap-4 p-4">
             <h2 className="text-2xl font-bold tracking-tight">Tags</h2>
-            <p className="text-muted-foreground">Manage your video tags here.</p>
-            <div className="flex flex-wrap gap-2">
-              <div className="px-3 py-1 bg-secondary text-secondary-foreground rounded-full text-sm">Education</div>
-              <div className="px-3 py-1 bg-secondary text-secondary-foreground rounded-full text-sm">Tutorials</div>
-              <div className="px-3 py-1 bg-secondary text-secondary-foreground rounded-full text-sm">Research</div>
-            </div>
+            <p className="text-muted-foreground">Browse videos by tag.</p>
+            {allTags.length > 0 ? (
+              <div className="flex flex-wrap gap-2">
+                {allTags.map(tag => (
+                  <button
+                    key={tag}
+                    onClick={() => {
+                      setSearchQuery(tag)
+                      setCurrentTab("library")
+                    }}
+                    className="px-3 py-1 bg-secondary hover:bg-secondary/80 text-secondary-foreground rounded-full text-sm transition-colors"
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center min-h-[200px] border-2 border-dashed rounded-xl bg-muted/30 p-8 text-center">
+                <p className="text-muted-foreground">No tags found. Add tags to your videos to see them here.</p>
+              </div>
+            )}
           </div>
         )
       case "settings":

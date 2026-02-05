@@ -7,6 +7,7 @@ import { Plus, Loader2 } from "lucide-react"
 import { extractYoutubeId, fetchVideoTitle, isValidYoutubeUrl } from "@/lib/youtube"
 import { saveVideo } from "@/lib/storage"
 import { Video } from "@/types"
+import { TagInput } from "@/components/tag-input"
 
 interface AddVideoDialogProps {
   onVideoAdded?: () => void;
@@ -16,6 +17,7 @@ export function AddVideoDialog({ onVideoAdded }: AddVideoDialogProps) {
   const [open, setOpen] = useState(false)
   const [url, setUrl] = useState("")
   const [title, setTitle] = useState("")
+  const [tags, setTags] = useState<string[]>([])
   const [isFetchingTitle, setIsFetchingTitle] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -24,6 +26,7 @@ export function AddVideoDialog({ onVideoAdded }: AddVideoDialogProps) {
       // Reset state when dialog closes
       setUrl("")
       setTitle("")
+      setTags([])
       setError(null)
       setIsFetchingTitle(false)
     }
@@ -71,7 +74,7 @@ export function AddVideoDialog({ onVideoAdded }: AddVideoDialogProps) {
       youtubeId: videoId,
       title: title.trim(),
       url: url.trim(),
-      tags: [],
+      tags: tags,
       createdAt: Date.now(),
     }
 
@@ -134,6 +137,14 @@ export function AddVideoDialog({ onVideoAdded }: AddVideoDialogProps) {
                   </div>
                 )}
               </div>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="tags">Tags</Label>
+              <TagInput 
+                tags={tags} 
+                onChange={setTags} 
+                placeholder="Add tags (Education, React, etc.)"
+              />
             </div>
             {error && (
               <div className="text-sm text-destructive font-medium">

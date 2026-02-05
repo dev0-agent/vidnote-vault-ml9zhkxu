@@ -39,11 +39,18 @@ Use this format when adding learnings:
   - Designed `saveVideo` and `addNote` to handle both create and update operations based on ID existence.
   - Ensured that deleting a video also cleans up associated notes to prevent data leakage/orphaned records.
 
-### Task: Integrate YouTube Player Component
+### Task: Add Tagging System
+
 - **Completed:** 2026-02-05
-- **Task ID:** 803c1e49-f9bb-4fa5-827e-2f03664ee57e
+
+- **Task ID:** 3db34133-fe1b-4a73-be09-abc00fae6411
+
 - **Learnings:**
-  - Used `react-youtube` which wraps the YouTube IFrame Player API.
-  - Implemented `VideoPlayer` with `forwardRef` and `useImperativeHandle` to expose imperative methods (`seekTo`, `getCurrentTime`, `pauseVideo`, `playVideo`) to parent components, allowing external control (e.g., clicking a note timestamp).
-  - Note that `getCurrentTime` returns a number (seconds) and is technically synchronous in the wrapper, but relies on the underlying player state.
-  - Added `allowSeekAhead` parameter to `seekTo` for flexibility.
+
+  - Implemented a `TagInput` component that uses `Enter` to add and `Backspace` on empty input to remove tags.
+
+  - Used `window.dispatchEvent(new CustomEvent("library-updated"))` to synchronize state across decoupled components (e.g., refreshing the dynamic tags list in the sidebar/tabs when a video is edited in the grid).
+
+  - Leveraged `useMemo` in the root `App` component with a `libraryVersion` counter to efficiently recalculate the global list of unique tags from all videos.
+
+  - Integrated tag filtering by simply setting the global `searchQuery` to the tag name when clicked, utilizing the existing search logic in `VideoGrid`.

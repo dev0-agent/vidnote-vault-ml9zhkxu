@@ -21,14 +21,17 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { EditVideoDialog } from "./edit-video-dialog"
 
 interface VideoCardProps {
   video: Video
   onDelete: (id: string) => void
   onSelect: (video: Video) => void
+  onTagClick?: (tag: string) => void
+  onVideoUpdated?: () => void
 }
 
-export function VideoCard({ video, onDelete, onSelect }: VideoCardProps) {
+export function VideoCard({ video, onDelete, onSelect, onTagClick, onVideoUpdated }: VideoCardProps) {
   const thumbnailUrl = `https://img.youtube.com/vi/${video.youtubeId}/mqdefault.jpg`
 
   return (
@@ -60,7 +63,15 @@ export function VideoCard({ video, onDelete, onSelect }: VideoCardProps) {
         <div className="flex flex-wrap gap-1 mt-2">
           {video.tags.length > 0 ? (
             video.tags.map((tag) => (
-              <Badge key={tag} variant="secondary" className="text-[10px] px-1.5 py-0">
+              <Badge 
+                key={tag} 
+                variant="secondary" 
+                className="text-[10px] px-1.5 py-0 cursor-pointer hover:bg-secondary/80 transition-colors"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onTagClick?.(tag);
+                }}
+              >
                 {tag}
               </Badge>
             ))
@@ -69,7 +80,11 @@ export function VideoCard({ video, onDelete, onSelect }: VideoCardProps) {
           )}
         </div>
       </CardContent>
-      <CardFooter className="p-4 pt-0 flex justify-end">
+      <CardFooter className="p-4 pt-0 flex justify-end gap-1">
+        <EditVideoDialog 
+          video={video} 
+          onVideoUpdated={onVideoUpdated}
+        />
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-destructive">
