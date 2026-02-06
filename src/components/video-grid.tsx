@@ -3,8 +3,9 @@ import { Video, Library } from "@/types"
 import { getLibrary, deleteVideo, searchLibrary } from "@/lib/storage"
 import { VideoCard } from "@/components/video-card"
 import { toast } from "sonner"
-import { LayoutGrid, List } from "lucide-react"
+import { LayoutGrid, List, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { AddVideoDialog } from "@/components/add-video-dialog"
 
 interface VideoGridProps {
   searchQuery?: string
@@ -53,9 +54,14 @@ export function VideoGrid({ searchQuery = "", onClearSearch, onVideoSelect, onTa
           <LayoutGrid className="h-8 w-8 text-muted-foreground" />
         </div>
         <h3 className="text-xl font-semibold">Your library is empty</h3>
-        <p className="text-muted-foreground mt-2 max-w-sm">
+        <p className="text-muted-foreground mt-2 max-w-sm mb-6">
           Start by adding a YouTube video URL to your collection.
         </p>
+        <AddVideoDialog onVideoAdded={() => {
+          toast.success("Video added successfully")
+          window.dispatchEvent(new CustomEvent("library-updated"))
+          loadLibrary()
+        }} />
       </div>
     )
   }

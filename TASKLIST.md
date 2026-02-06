@@ -18,7 +18,7 @@ It is automatically updated by dev0 as tasks are completed.
 
 ## Phase 2
 
-- [ ] ⏳ **Implement 'Add Video' Dialog**
+- [x] ✅ **Implement 'Add Video' Dialog**
   Create a Dialog component that accepts a YouTube URL. Implement a utility to extract the YouTube Video ID from various URL formats (shorts, standard, share links). On submit, create a new Video entry in localStorage. Use `noembed.com` or similar public oEmbed endpoint to fetch the video title automatically if possible, otherwise allow manual title entry.
 
 - [x] ✅ **Build Video Grid Dashboard**
@@ -30,7 +30,7 @@ It is automatically updated by dev0 as tasks are completed.
 - [x] ✅ **Implement Timestamp Note Creation**
   Build the Note Input interface. This should sit next to or below the player. When the user focuses the input, pause the video. Include a button to 'Capture Timestamp' which grabs the current player time. Saving the note adds it to the `storage` associated with the video ID.
 
-- [ ] ⏳ **Implement Note List and Seek Logic**
+- [x] ✅ **Implement Note List and Seek Logic**
   Display the list of notes for the active video. Format the timestamp (e.g., 135s -> 02:15). When a note or its timestamp is clicked, use the Player reference to seek the video to that specific second.
 
 ## Phase 3
@@ -38,7 +38,7 @@ It is automatically updated by dev0 as tasks are completed.
 - [x] ✅ **Add Tagging System**
   Update the Add/Edit Video forms to support tags. Create a simple tag input component (enter to add). Update the Dashboard to allow filtering by clicking a tag.
 
-- [ ] ⏳ **Implement Global Search**
+- [x] ✅ **Implement Global Search**
   Add a search bar to the header. Implement a search function in `storage.ts` that filters videos by title and also searches within the content of attached notes. Display results in a unified list.
 
 ## Phase 4
@@ -46,7 +46,7 @@ It is automatically updated by dev0 as tasks are completed.
 - [x] ✅ **Data Export and Import**
   Add a Settings page. Implement 'Export Data' (downloads a JSON file of the localStorage state) and 'Import Data' (reads a JSON file, validates it, and replaces localStorage). This is crucial for a local-only app.
 
-- [ ] ⏳ **UI Polish and Empty States**
+- [x] ✅ **UI Polish and Empty States**
   Add empty states for the library (e.g., 'No videos yet, add one!'). Add toast notifications for actions (Note saved, Video deleted). Ensure the player layout is responsive on mobile devices.
 
 ---
