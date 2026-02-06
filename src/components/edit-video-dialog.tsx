@@ -7,6 +7,7 @@ import { Pencil } from "lucide-react"
 import { saveVideo } from "@/lib/storage"
 import { Video } from "@/types"
 import { TagInput } from "@/components/tag-input"
+import { toast } from "sonner"
 
 interface EditVideoDialogProps {
   video: Video;
@@ -17,13 +18,13 @@ interface EditVideoDialogProps {
 export function EditVideoDialog({ video, onVideoUpdated, trigger }: EditVideoDialogProps) {
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState(video.title)
-  const [tags, setTags] = useState<string[]>(video.tags)
+  const [tags, setTags] = useState<string[]>([...video.tags])
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     if (open) {
       setTitle(video.title)
-      setTags(video.tags)
+      setTags([...video.tags])
       setError(null)
     }
   }, [open, video])
@@ -45,6 +46,7 @@ export function EditVideoDialog({ video, onVideoUpdated, trigger }: EditVideoDia
     try {
       saveVideo(updatedVideo)
       window.dispatchEvent(new CustomEvent("library-updated"))
+      toast.success("Video updated successfully")
       setOpen(false)
       if (onVideoUpdated) {
         onVideoUpdated()
