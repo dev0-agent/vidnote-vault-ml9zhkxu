@@ -52,6 +52,19 @@ export const getLibrary = (): Library => {
 };
 
 /**
+ * Overwrites the entire library in localStorage with new data.
+ * Validates the data before saving.
+ */
+export const replaceLibrary = (data: unknown): void => {
+  const result = LibrarySchema.safeParse(data);
+  if (!result.success) {
+    throw new Error('Invalid library data format.');
+  }
+  saveLibrary(result.data);
+  window.dispatchEvent(new CustomEvent('library-updated'));
+};
+
+/**
  * Persists the entire library to localStorage.
  * Handles quota limits by throwing a user-friendly error.
  */

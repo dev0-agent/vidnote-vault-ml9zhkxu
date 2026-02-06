@@ -19,6 +19,7 @@ import { toast } from "sonner"
 import { AddVideoDialog } from "@/components/add-video-dialog"
 import { VideoGrid } from "@/components/video-grid"
 import { VideoDetailView } from "@/components/video-detail-view"
+import { SettingsView } from "@/components/settings-view"
 import { Video } from "@/types"
 import { getLibrary } from "@/lib/storage"
 
@@ -102,21 +103,7 @@ export function App() {
           </div>
         )
       case "settings":
-        return (
-          <div className="flex flex-1 flex-col gap-4 p-4">
-            <h2 className="text-2xl font-bold tracking-tight">Settings</h2>
-            <div className="max-w-2xl space-y-6">
-              <section>
-                <h3 className="text-lg font-medium">Data Management</h3>
-                <p className="text-sm text-muted-foreground mb-4">Export your library or import from a backup.</p>
-                <div className="flex gap-4">
-                  <button className="px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm font-medium">Export Library</button>
-                  <button className="px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md text-sm font-medium">Import Library</button>
-                </div>
-              </section>
-            </div>
-          </div>
-        )
+        return <SettingsView />
       default:
         return null
     }
