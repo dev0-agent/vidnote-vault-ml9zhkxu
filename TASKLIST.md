@@ -43,7 +43,7 @@ It is automatically updated by dev0 as tasks are completed.
 
 ## Phase 4
 
-- [ ] ⏳ **Data Export and Import**
+- [x] ✅ **Data Export and Import**
   Add a Settings page. Implement 'Export Data' (downloads a JSON file of the localStorage state) and 'Import Data' (reads a JSON file, validates it, and replaces localStorage). This is crucial for a local-only app.
 
 - [ ] ⏳ **UI Polish and Empty States**
