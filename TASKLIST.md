@@ -49,6 +49,9 @@ It is automatically updated by dev0 as tasks are completed.
 - [x] ✅ **UI Polish and Empty States**
   Add empty states for the library (e.g., 'No videos yet, add one!'). Add toast notifications for actions (Note saved, Video deleted). Ensure the player layout is responsive on mobile devices.
 
+- [x] ✅ **Allow E2B preview host in Vite config**
+  Update vite.config to allow E2B preview hosts (e.g., *.e2b.app) by configuring server.allowedHosts so the preview iframe can connect without blocked host errors.
+
 ---
 
 _Last updated by dev0 automation_
