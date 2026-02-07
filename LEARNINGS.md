@@ -39,18 +39,9 @@ Use this format when adding learnings:
   - Designed `saveVideo` and `addNote` to handle both create and update operations based on ID existence.
   - Ensured that deleting a video also cleans up associated notes to prevent data leakage/orphaned records.
 
-### Task: Add Tagging System
-
-- **Completed:** 2026-02-05
-
-- **Task ID:** 3db34133-fe1b-4a73-be09-abc00fae6411
-
+### Task: Allow E2B preview host in Vite config
+- **Completed:** 2026-02-07
+- **Task ID:** 20e03d89-4915-4e37-b5ce-e78eec7c205e
 - **Learnings:**
-
-  - Implemented a `TagInput` component that uses `Enter` to add and `Backspace` on empty input to remove tags.
-
-  - Used `window.dispatchEvent(new CustomEvent("library-updated"))` to synchronize state across decoupled components (e.g., refreshing the dynamic tags list in the sidebar/tabs when a video is edited in the grid).
-
-  - Leveraged `useMemo` in the root `App` component with a `libraryVersion` counter to efficiently recalculate the global list of unique tags from all videos.
-
-  - Integrated tag filtering by simply setting the global `searchQuery` to the tag name when clicked, utilizing the existing search logic in `VideoGrid`.
+  - Vite 6+ requires `server.allowedHosts` to be configured when the application is embedded in an iframe on a different domain (like E2B previews).
+  - Adding `".e2b.app"` to `allowedHosts` solves the "Blocked host" error when accessing the dev server through a proxy.
