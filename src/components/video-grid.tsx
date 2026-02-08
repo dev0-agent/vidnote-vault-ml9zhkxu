@@ -1,9 +1,9 @@
 import * as React from "react"
-import { Video, Library } from "@/types"
+import type { Video, Library } from "@/types"
 import { getLibrary, deleteVideo, searchLibrary } from "@/lib/storage"
 import { VideoCard } from "@/components/video-card"
 import { toast } from "sonner"
-import { LayoutGrid, List, Plus } from "lucide-react"
+import { LayoutGrid, List } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { AddVideoDialog } from "@/components/add-video-dialog"
 

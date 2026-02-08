@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Plus, Loader2 } from "lucide-react"
-import { extractYoutubeId, fetchVideoTitle, isValidYoutubeUrl } from "@/lib/youtube"
+import { extractYoutubeId, fetchVideoTitle } from "@/lib/youtube"
 import { saveVideo } from "@/lib/storage"
-import { Video } from "@/types"
+import type { Video } from "@/types"
 import { TagInput } from "@/components/tag-input"
 
 interface AddVideoDialogProps {

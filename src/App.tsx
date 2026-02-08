@@ -20,7 +20,7 @@ import { AddVideoDialog } from "@/components/add-video-dialog"
 import { VideoGrid } from "@/components/video-grid"
 import { VideoDetailView } from "@/components/video-detail-view"
 import { SettingsView } from "@/components/settings-view"
-import { Video } from "@/types"
+import type { Video } from "@/types"
 import { getLibrary } from "@/lib/storage"
 
 export function App() {

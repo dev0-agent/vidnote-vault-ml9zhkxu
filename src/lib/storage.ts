@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Video, Note, Library } from '../types';
+import type { Video, Note, Library } from '../types';
 
 const VideoSchema = z.object({
   id: z.string(),

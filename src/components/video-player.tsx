@@ -1,5 +1,5 @@
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
-import YouTube, { YouTubeProps } from 'react-youtube';
+import { forwardRef, useImperativeHandle, useRef } from 'react';
+import YouTube, { type YouTubeProps } from 'react-youtube';
 
 export interface VideoPlayerRef {
   seekTo: (seconds: number, allowSeekAhead?: boolean) => void;

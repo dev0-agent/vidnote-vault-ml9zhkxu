@@ -1,6 +1,5 @@
-import * as React from "react"
 import { Trash2, Play } from "lucide-react"
-import { Video } from "@/types"
+import type { Video } from "@/types"
 import {
   Card,
   CardContent,

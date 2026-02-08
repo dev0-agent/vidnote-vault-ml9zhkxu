@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Pencil } from "lucide-react"
 import { saveVideo } from "@/lib/storage"
-import { Video } from "@/types"
+import type { Video } from "@/types"
 import { TagInput } from "@/components/tag-input"
 import { toast } from "sonner"
 
